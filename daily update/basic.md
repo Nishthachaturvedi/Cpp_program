@@ -381,3 +381,120 @@ int main() {
     return 0;
 }
 ```
+
+---
+
+## Q17. Linear Search using Iteration
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int linearSearch(int arr[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    int arr[] = {10, 20, 30, 40, 50};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int target = 30;
+
+    int result = linearSearch(arr, size, target);
+
+    if (result != -1)
+        cout << "Element found at index " << result << endl;
+    else
+        cout << "Element not found" << endl;
+
+    return 0;
+}
+```
+
+---
+
+## Q18. Linear Search using Recursion
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int linearSearch(int arr[], int n, int key, int index) {
+
+    if (index == n)
+        return -1;
+
+    if (arr[index] == key)
+        return index;
+
+    return linearSearch(arr, n, key, index + 1);
+}
+
+int main() {
+
+    int arr[] = {10, 20, 30, 40, 50};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int key = 30;
+
+    int result = linearSearch(arr, n, key, 0);
+
+    if (result != -1)
+        cout << "Element found at index " << result;
+    else
+        cout << "Element not found";
+
+    return 0;
+}
+```
+
+---
+
+## Q19. Display a Character using DOS Interrupt (INT 21H, Function 02H)
+
+```cpp
+#include <dos.h>
+
+int main() {
+
+    union REGS r;
+
+    r.h.ah = 0x02;
+
+    r.h.dl = 'H'; int86(0x21, &r, &r);
+    r.h.dl = 'e'; int86(0x21, &r, &r);
+    r.h.dl = 'l'; int86(0x21, &r, &r);
+    r.h.dl = 'l'; int86(0x21, &r, &r);
+    r.h.dl = 'o'; int86(0x21, &r, &r);
+
+    return 0;
+}
+```
+
+---
+
+## Q20. Display a String using DOS Interrupt (INT 21H, Function 09H)
+
+```cpp
+#include <dos.h>
+
+int main() {
+
+    char msg[] = "Hello$";
+
+    union REGS r;
+    struct SREGS s;
+
+    segread(&s);
+
+    r.h.ah = 0x09;
+    r.x.dx = (unsigned)msg;
+
+    int86x(0x21, &r, &r, &s);
+
+    return 0;
+}
+```
